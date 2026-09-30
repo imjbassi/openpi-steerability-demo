@@ -4,7 +4,9 @@
 #   make rollouts   (terminal 2; all prompts x all episodes, resumable)
 #   make video      (build media/demo.mp4 + media/shot1.gif from the logs)
 
-PY := .venv-client/bin/python
+# LIBERO is used straight from the openpi submodule checkout, so it must be
+# on PYTHONPATH (openpi's LIBERO example does the same).
+PY := PYTHONPATH=vendor/openpi/third_party/libero .venv-client/bin/python
 MUJOCO_GL ?= egl
 
 .PHONY: setup setup-openpi setup-client bddl check serve rollouts video smoke mock-server clean-results

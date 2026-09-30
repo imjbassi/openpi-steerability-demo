@@ -18,4 +18,9 @@ uv pip sync vendor/openpi/examples/libero/requirements.txt \
     --index-strategy=unsafe-best-match
 uv pip install -e vendor/openpi/packages/openpi-client
 uv pip install -e vendor/openpi/third_party/libero
+
+# LIBERO asks interactively about a dataset path on first import; answer "no"
+# so it writes its default ~/.libero/config.yaml (we never download datasets).
+echo n | PYTHONPATH=vendor/openpi/third_party/libero .venv-client/bin/python \
+    -c "import libero.libero" >/dev/null
 echo "client environment ready (.venv-client)"

@@ -174,7 +174,7 @@ def load_done(log_path):
     return done
 
 
-def write_summary(log_path, spec, out_dir):
+def write_summary(log_path, spec, out_dir, server_metadata=None):
     records = []
     with open(str(log_path)) as f:
         for line in f:
@@ -208,6 +208,7 @@ def write_summary(log_path, spec, out_dir):
     summary = {
         "checkpoint": "gs://openpi-assets/checkpoints/pi05_libero",
         "simulator": "LIBERO (libero_goal scene)",
+        "server_metadata": server_metadata,  # from the policy server actually used
         "anchor_task": spec["anchor_task"],
         "env_seed": spec["env_seed"],
         "generated_at": datetime.datetime.now().isoformat(),
@@ -288,7 +289,9 @@ def main():
             env.close()
 
     log_file.close()
-    summary_path, summary = write_summary(log_path, spec, out_dir)
+    summary_path, summary = write_summary(
+        log_path, spec, out_dir, server_metadata=client.get_server_metadata()
+    )
     logging.info("summary written to %s", summary_path)
     for pid, entry in summary["prompts"].items():
         logging.info(
