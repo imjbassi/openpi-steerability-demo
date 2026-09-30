@@ -111,6 +111,18 @@ python scripts/readme_table.py   # refresh the table above from the logs
 prints the actual numbers, so you know what to close. If MuJoCo rendering
 fails with EGL errors in the client, use `make rollouts MUJOCO_GL=osmesa`.
 
+Disk budget: ~0.7 GB openpi clone, ~4.5 GB client env, ~8-12 GB server env,
+plus the 12.4 GB `pi05_libero` checkpoint cached in `~/.cache/openpi`. If
+the drive holding WSL2 is tight, the checkpoint (big files, read once at
+server start) can live on another drive:
+
+```bash
+OPENPI_DATA_HOME=/mnt/d/openpi-cache make serve
+```
+
+Keep the repo and both venvs on the WSL2 ext4 disk, not `/mnt/*` — venvs on
+Windows-mounted drives are slow and symlink-broken.
+
 Sanity checks without a GPU: `make mock-server` serves random actions over
 the same websocket protocol, and `make smoke` runs 2 episodes per prompt
 against whatever server is up, writing to `results-smoke/`.
