@@ -128,7 +128,7 @@ def panel_image(prompt_entry, frame, novel, finished):
     return cell
 
 
-def render_shot(entries, title, novel, target_s, writer):
+def render_shot(entries, title, novel, target_s, writer, mock=False):
     """One grid shot: panels play simultaneously at a uniform speed."""
     frame_size = CELL_H - LABEL_H
     panels = []
@@ -150,6 +150,8 @@ def render_shot(entries, title, novel, target_s, writer):
         if speed > 1.05:
             note += "  ({:.1f}x speed)".format(speed)
         draw.text((WIDTH - text_width(draw, note, F_SMALL) - 32, 36), note, font=F_SMALL, fill=MUTED)
+        if mock:
+            draw.text((WIDTH // 2 - 160, 40), "MOCK SERVER DATA", font=F_STATS, fill=RED)
 
         for j, entry in enumerate(entries):
             frames = panels[j]
@@ -168,10 +170,12 @@ def render_shot(entries, title, novel, target_s, writer):
         yield frame
 
 
-def render_closing_card(summary, writer):
+def render_closing_card(summary, writer, mock=False):
     canvas = Image.new("RGB", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(canvas)
     draw.text((64, 40), "Results: every prompt, all episodes", font=F_TITLE, fill=TEXT)
+    if mock:
+        draw.text((WIDTH - 420, 48), "MOCK SERVER DATA", font=F_STATS, fill=RED)
 
     col_prompt, col_group, col_rate = 64, 1280, 1600
     y = 140
@@ -244,18 +248,31 @@ def main():
     if not in_dist or not novel:
         raise SystemExit("summary.json must contain both prompt groups")
 
+    mock = bool((summary.get("server_metadata") or {}).get("mock"))
     mp4_path = out_dir / "demo.mp4"
     writer = imageio.get_writer(
-        str(mp4_path), fps=FPS, codec="libx264", quality=8, pixelformat="yuv420p"
+        str(mp4_path),
+        fps=FPS,
+        codec="libx264",
+        quality=8,
+        pixelformat="yuv420p",
+        macro_block_size=1,  # keep exactly 1920x1080 (1080 % 16 != 0)
     )
     shot1_frames = list(
-        render_shot(in_dist, "Same scene. Different instruction.", False, SHOT1_TARGET_S, writer)
+        render_shot(
+            in_dist, "Same scene. Different instruction.", False, SHOT1_TARGET_S, writer, mock=mock
+        )
     )
     for _ in render_shot(
-        novel, "Novel instructions (not in the fine-tuning tasks)", True, SHOT2_TARGET_S, writer
+        novel,
+        "Novel instructions (not in the fine-tuning tasks)",
+        True,
+        SHOT2_TARGET_S,
+        writer,
+        mock=mock,
     ):
         pass
-    render_closing_card(summary, writer)
+    render_closing_card(summary, writer, mock=mock)
     writer.close()
     print("wrote", mp4_path)
 
