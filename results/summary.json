@@ -1,0 +1,570 @@
+{
+  "checkpoint": "gs://openpi-assets/checkpoints/pi05_libero",
+  "simulator": "LIBERO (libero_goal scene)",
+  "server_metadata": {},
+  "anchor_task": "put_the_bowl_on_the_plate",
+  "env_seed": 0,
+  "generated_at": "2026-09-29T22:15:18.435621",
+  "prompts": {
+    "id_bowl_plate": {
+      "text": "put the bowl on the plate",
+      "group": "in_distribution",
+      "kind": "trained",
+      "num_episodes": 10,
+      "num_successes": 10,
+      "success_rate": 1.0,
+      "episodes": [
+        {
+          "episode": 0,
+          "success": true,
+          "steps": 80,
+          "video": "episodes/id_bowl_plate/ep00.mp4"
+        },
+        {
+          "episode": 1,
+          "success": true,
+          "steps": 74,
+          "video": "episodes/id_bowl_plate/ep01.mp4"
+        },
+        {
+          "episode": 2,
+          "success": true,
+          "steps": 75,
+          "video": "episodes/id_bowl_plate/ep02.mp4"
+        },
+        {
+          "episode": 3,
+          "success": true,
+          "steps": 72,
+          "video": "episodes/id_bowl_plate/ep03.mp4"
+        },
+        {
+          "episode": 4,
+          "success": true,
+          "steps": 77,
+          "video": "episodes/id_bowl_plate/ep04.mp4"
+        },
+        {
+          "episode": 5,
+          "success": true,
+          "steps": 74,
+          "video": "episodes/id_bowl_plate/ep05.mp4"
+        },
+        {
+          "episode": 6,
+          "success": true,
+          "steps": 70,
+          "video": "episodes/id_bowl_plate/ep06.mp4"
+        },
+        {
+          "episode": 7,
+          "success": true,
+          "steps": 83,
+          "video": "episodes/id_bowl_plate/ep07.mp4"
+        },
+        {
+          "episode": 8,
+          "success": true,
+          "steps": 74,
+          "video": "episodes/id_bowl_plate/ep08.mp4"
+        },
+        {
+          "episode": 9,
+          "success": true,
+          "steps": 75,
+          "video": "episodes/id_bowl_plate/ep09.mp4"
+        }
+      ]
+    },
+    "id_wine_rack": {
+      "text": "put the wine bottle on the rack",
+      "group": "in_distribution",
+      "kind": "trained",
+      "num_episodes": 10,
+      "num_successes": 10,
+      "success_rate": 1.0,
+      "episodes": [
+        {
+          "episode": 0,
+          "success": true,
+          "steps": 144,
+          "video": "episodes/id_wine_rack/ep00.mp4"
+        },
+        {
+          "episode": 1,
+          "success": true,
+          "steps": 143,
+          "video": "episodes/id_wine_rack/ep01.mp4"
+        },
+        {
+          "episode": 2,
+          "success": true,
+          "steps": 166,
+          "video": "episodes/id_wine_rack/ep02.mp4"
+        },
+        {
+          "episode": 3,
+          "success": true,
+          "steps": 110,
+          "video": "episodes/id_wine_rack/ep03.mp4"
+        },
+        {
+          "episode": 4,
+          "success": true,
+          "steps": 153,
+          "video": "episodes/id_wine_rack/ep04.mp4"
+        },
+        {
+          "episode": 5,
+          "success": true,
+          "steps": 114,
+          "video": "episodes/id_wine_rack/ep05.mp4"
+        },
+        {
+          "episode": 6,
+          "success": true,
+          "steps": 132,
+          "video": "episodes/id_wine_rack/ep06.mp4"
+        },
+        {
+          "episode": 7,
+          "success": true,
+          "steps": 125,
+          "video": "episodes/id_wine_rack/ep07.mp4"
+        },
+        {
+          "episode": 8,
+          "success": true,
+          "steps": 152,
+          "video": "episodes/id_wine_rack/ep08.mp4"
+        },
+        {
+          "episode": 9,
+          "success": true,
+          "steps": 117,
+          "video": "episodes/id_wine_rack/ep09.mp4"
+        }
+      ]
+    },
+    "id_stove_on": {
+      "text": "turn on the stove",
+      "group": "in_distribution",
+      "kind": "trained",
+      "num_episodes": 10,
+      "num_successes": 10,
+      "success_rate": 1.0,
+      "episodes": [
+        {
+          "episode": 0,
+          "success": true,
+          "steps": 75,
+          "video": "episodes/id_stove_on/ep00.mp4"
+        },
+        {
+          "episode": 1,
+          "success": true,
+          "steps": 77,
+          "video": "episodes/id_stove_on/ep01.mp4"
+        },
+        {
+          "episode": 2,
+          "success": true,
+          "steps": 69,
+          "video": "episodes/id_stove_on/ep02.mp4"
+        },
+        {
+          "episode": 3,
+          "success": true,
+          "steps": 68,
+          "video": "episodes/id_stove_on/ep03.mp4"
+        },
+        {
+          "episode": 4,
+          "success": true,
+          "steps": 69,
+          "video": "episodes/id_stove_on/ep04.mp4"
+        },
+        {
+          "episode": 5,
+          "success": true,
+          "steps": 76,
+          "video": "episodes/id_stove_on/ep05.mp4"
+        },
+        {
+          "episode": 6,
+          "success": true,
+          "steps": 71,
+          "video": "episodes/id_stove_on/ep06.mp4"
+        },
+        {
+          "episode": 7,
+          "success": true,
+          "steps": 71,
+          "video": "episodes/id_stove_on/ep07.mp4"
+        },
+        {
+          "episode": 8,
+          "success": true,
+          "steps": 70,
+          "video": "episodes/id_stove_on/ep08.mp4"
+        },
+        {
+          "episode": 9,
+          "success": true,
+          "steps": 79,
+          "video": "episodes/id_stove_on/ep09.mp4"
+        }
+      ]
+    },
+    "id_middle_drawer": {
+      "text": "open the middle drawer of the cabinet",
+      "group": "in_distribution",
+      "kind": "trained",
+      "num_episodes": 10,
+      "num_successes": 10,
+      "success_rate": 1.0,
+      "episodes": [
+        {
+          "episode": 0,
+          "success": true,
+          "steps": 115,
+          "video": "episodes/id_middle_drawer/ep00.mp4"
+        },
+        {
+          "episode": 1,
+          "success": true,
+          "steps": 126,
+          "video": "episodes/id_middle_drawer/ep01.mp4"
+        },
+        {
+          "episode": 2,
+          "success": true,
+          "steps": 130,
+          "video": "episodes/id_middle_drawer/ep02.mp4"
+        },
+        {
+          "episode": 3,
+          "success": true,
+          "steps": 106,
+          "video": "episodes/id_middle_drawer/ep03.mp4"
+        },
+        {
+          "episode": 4,
+          "success": true,
+          "steps": 127,
+          "video": "episodes/id_middle_drawer/ep04.mp4"
+        },
+        {
+          "episode": 5,
+          "success": true,
+          "steps": 129,
+          "video": "episodes/id_middle_drawer/ep05.mp4"
+        },
+        {
+          "episode": 6,
+          "success": true,
+          "steps": 127,
+          "video": "episodes/id_middle_drawer/ep06.mp4"
+        },
+        {
+          "episode": 7,
+          "success": true,
+          "steps": 123,
+          "video": "episodes/id_middle_drawer/ep07.mp4"
+        },
+        {
+          "episode": 8,
+          "success": true,
+          "steps": 136,
+          "video": "episodes/id_middle_drawer/ep08.mp4"
+        },
+        {
+          "episode": 9,
+          "success": true,
+          "steps": 113,
+          "video": "episodes/id_middle_drawer/ep09.mp4"
+        }
+      ]
+    },
+    "nv_paraphrase_bowl_plate": {
+      "text": "place the black bowl on top of the plate",
+      "group": "novel",
+      "kind": "paraphrase",
+      "num_episodes": 10,
+      "num_successes": 10,
+      "success_rate": 1.0,
+      "episodes": [
+        {
+          "episode": 0,
+          "success": true,
+          "steps": 79,
+          "video": "episodes/nv_paraphrase_bowl_plate/ep00.mp4"
+        },
+        {
+          "episode": 1,
+          "success": true,
+          "steps": 76,
+          "video": "episodes/nv_paraphrase_bowl_plate/ep01.mp4"
+        },
+        {
+          "episode": 2,
+          "success": true,
+          "steps": 77,
+          "video": "episodes/nv_paraphrase_bowl_plate/ep02.mp4"
+        },
+        {
+          "episode": 3,
+          "success": true,
+          "steps": 70,
+          "video": "episodes/nv_paraphrase_bowl_plate/ep03.mp4"
+        },
+        {
+          "episode": 4,
+          "success": true,
+          "steps": 76,
+          "video": "episodes/nv_paraphrase_bowl_plate/ep04.mp4"
+        },
+        {
+          "episode": 5,
+          "success": true,
+          "steps": 78,
+          "video": "episodes/nv_paraphrase_bowl_plate/ep05.mp4"
+        },
+        {
+          "episode": 6,
+          "success": true,
+          "steps": 68,
+          "video": "episodes/nv_paraphrase_bowl_plate/ep06.mp4"
+        },
+        {
+          "episode": 7,
+          "success": true,
+          "steps": 82,
+          "video": "episodes/nv_paraphrase_bowl_plate/ep07.mp4"
+        },
+        {
+          "episode": 8,
+          "success": true,
+          "steps": 75,
+          "video": "episodes/nv_paraphrase_bowl_plate/ep08.mp4"
+        },
+        {
+          "episode": 9,
+          "success": true,
+          "steps": 76,
+          "video": "episodes/nv_paraphrase_bowl_plate/ep09.mp4"
+        }
+      ]
+    },
+    "nv_cheese_plate": {
+      "text": "put the cream cheese on the plate",
+      "group": "novel",
+      "kind": "recombination",
+      "num_episodes": 10,
+      "num_successes": 1,
+      "success_rate": 0.1,
+      "episodes": [
+        {
+          "episode": 0,
+          "success": true,
+          "steps": 168,
+          "video": "episodes/nv_cheese_plate/ep00.mp4"
+        },
+        {
+          "episode": 1,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_cheese_plate/ep01.mp4"
+        },
+        {
+          "episode": 2,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_cheese_plate/ep02.mp4"
+        },
+        {
+          "episode": 3,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_cheese_plate/ep03.mp4"
+        },
+        {
+          "episode": 4,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_cheese_plate/ep04.mp4"
+        },
+        {
+          "episode": 5,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_cheese_plate/ep05.mp4"
+        },
+        {
+          "episode": 6,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_cheese_plate/ep06.mp4"
+        },
+        {
+          "episode": 7,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_cheese_plate/ep07.mp4"
+        },
+        {
+          "episode": 8,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_cheese_plate/ep08.mp4"
+        },
+        {
+          "episode": 9,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_cheese_plate/ep09.mp4"
+        }
+      ]
+    },
+    "nv_wine_stove": {
+      "text": "put the wine bottle on the stove",
+      "group": "novel",
+      "kind": "recombination",
+      "num_episodes": 10,
+      "num_successes": 8,
+      "success_rate": 0.8,
+      "episodes": [
+        {
+          "episode": 0,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_wine_stove/ep00.mp4"
+        },
+        {
+          "episode": 1,
+          "success": true,
+          "steps": 181,
+          "video": "episodes/nv_wine_stove/ep01.mp4"
+        },
+        {
+          "episode": 2,
+          "success": true,
+          "steps": 91,
+          "video": "episodes/nv_wine_stove/ep02.mp4"
+        },
+        {
+          "episode": 3,
+          "success": true,
+          "steps": 95,
+          "video": "episodes/nv_wine_stove/ep03.mp4"
+        },
+        {
+          "episode": 4,
+          "success": true,
+          "steps": 90,
+          "video": "episodes/nv_wine_stove/ep04.mp4"
+        },
+        {
+          "episode": 5,
+          "success": false,
+          "steps": 300,
+          "video": "episodes/nv_wine_stove/ep05.mp4"
+        },
+        {
+          "episode": 6,
+          "success": true,
+          "steps": 102,
+          "video": "episodes/nv_wine_stove/ep06.mp4"
+        },
+        {
+          "episode": 7,
+          "success": true,
+          "steps": 104,
+          "video": "episodes/nv_wine_stove/ep07.mp4"
+        },
+        {
+          "episode": 8,
+          "success": true,
+          "steps": 92,
+          "video": "episodes/nv_wine_stove/ep08.mp4"
+        },
+        {
+          "episode": 9,
+          "success": true,
+          "steps": 101,
+          "video": "episodes/nv_wine_stove/ep09.mp4"
+        }
+      ]
+    },
+    "nv_combined_stove_bowl": {
+      "text": "turn on the stove and put the bowl on the stove",
+      "group": "novel",
+      "kind": "combined",
+      "num_episodes": 10,
+      "num_successes": 5,
+      "success_rate": 0.5,
+      "episodes": [
+        {
+          "episode": 0,
+          "success": false,
+          "steps": 520,
+          "video": "episodes/nv_combined_stove_bowl/ep00.mp4"
+        },
+        {
+          "episode": 1,
+          "success": true,
+          "steps": 280,
+          "video": "episodes/nv_combined_stove_bowl/ep01.mp4"
+        },
+        {
+          "episode": 2,
+          "success": true,
+          "steps": 234,
+          "video": "episodes/nv_combined_stove_bowl/ep02.mp4"
+        },
+        {
+          "episode": 3,
+          "success": false,
+          "steps": 520,
+          "video": "episodes/nv_combined_stove_bowl/ep03.mp4"
+        },
+        {
+          "episode": 4,
+          "success": false,
+          "steps": 520,
+          "video": "episodes/nv_combined_stove_bowl/ep04.mp4"
+        },
+        {
+          "episode": 5,
+          "success": false,
+          "steps": 520,
+          "video": "episodes/nv_combined_stove_bowl/ep05.mp4"
+        },
+        {
+          "episode": 6,
+          "success": true,
+          "steps": 170,
+          "video": "episodes/nv_combined_stove_bowl/ep06.mp4"
+        },
+        {
+          "episode": 7,
+          "success": true,
+          "steps": 240,
+          "video": "episodes/nv_combined_stove_bowl/ep07.mp4"
+        },
+        {
+          "episode": 8,
+          "success": true,
+          "steps": 235,
+          "video": "episodes/nv_combined_stove_bowl/ep08.mp4"
+        },
+        {
+          "episode": 9,
+          "success": false,
+          "steps": 520,
+          "video": "episodes/nv_combined_stove_bowl/ep09.mp4"
+        }
+      ]
+    }
+  }
+}

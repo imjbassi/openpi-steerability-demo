@@ -65,8 +65,18 @@ success or failure is ever judged by eye.
 ## Results
 
 <!-- RESULTS_TABLE_START -->
-*Not yet run — this table is filled in from `results/summary.json` by
-`python scripts/readme_table.py` after `make rollouts` completes.*
+| prompt | group | kind | success |
+| --- | --- | --- | --- |
+| "put the bowl on the plate" | in-distribution | trained | 10/10 |
+| "put the wine bottle on the rack" | in-distribution | trained | 10/10 |
+| "turn on the stove" | in-distribution | trained | 10/10 |
+| "open the middle drawer of the cabinet" | in-distribution | trained | 10/10 |
+| "place the black bowl on top of the plate" | novel | paraphrase | 10/10 |
+| "put the cream cheese on the plate" | novel | recombination | 1/10 |
+| "put the wine bottle on the stove" | novel | recombination | 8/10 |
+| "turn on the stove and put the bowl on the stove" | novel | combined | 5/10 |
+
+Generated 2026-09-29 from `results/summary.json`.
 <!-- RESULTS_TABLE_END -->
 
 Model: `pi05_libero` · Simulator: LIBERO (`libero_goal` scene) · Full video:
