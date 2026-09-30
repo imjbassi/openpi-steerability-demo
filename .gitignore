@@ -1,0 +1,8 @@
+vendor/
+.venv-client/
+__pycache__/
+*.pyc
+results*/episodes/
+results-smoke/
+# media/demo.mp4 is rebuilt with `make video`; the README GIF is committed.
+media/*.mp4

@@ -1,0 +1,112 @@
+# Prompt specification for the language-steerability demo.
+#
+# Scene: the LIBERO "libero_goal" tabletop scene (all ten libero_goal tasks
+# share one scene: black bowl, plate, cream cheese, wine bottle, wooden
+# cabinet with drawers, flat stove, wine rack on a table).
+#
+# Every prompt runs in this same scene. The starting object arrangement for
+# episode k is LIBERO's precomputed initial state k of the anchor task, so
+# episode k starts from an identical scene for every prompt.
+#
+# Groups:
+#   in_distribution: the exact language string of a libero_goal task the
+#     pi05_libero checkpoint was fine-tuned on (training prompts were the
+#     task language strings themselves; see README).
+#   novel: a string that appears in none of the 40 training task strings
+#     (libero_spatial + libero_object + libero_goal + libero_10).
+#     scripts/check_prompts.py verifies this against the installed LIBERO
+#     benchmark.
+#
+# Success for every episode comes from the LIBERO environment's own BDDL
+# goal check (env.step done / check_success), never from human judgment.
+# Novel goals use custom BDDL files that copy the libero_goal scene verbatim
+# and change only the :goal predicate (see scripts/gen_bddl.py).
+
+task_suite: libero_goal
+anchor_task: put_the_bowl_on_the_plate # init states borrowed from this task
+env_seed: 0 # fixed env seed; episodes vary only by init-state index
+num_episodes: 10 # episodes per prompt; init-state indices 0..num_episodes-1
+max_steps_default: 300 # matches openpi's libero_goal eval horizon
+replan_steps: 5
+resize_size: 224
+num_steps_wait: 10
+
+prompts:
+  # ------------------------------------------------------------------
+  # In-distribution: verbatim libero_goal training task language
+  # ------------------------------------------------------------------
+  - id: id_bowl_plate
+    text: "put the bowl on the plate"
+    group: in_distribution
+    kind: trained
+    bddl: suite:put_the_bowl_on_the_plate
+    rationale: exact language of libero_goal task put_the_bowl_on_the_plate
+
+  - id: id_wine_rack
+    text: "put the wine bottle on the rack"
+    group: in_distribution
+    kind: trained
+    bddl: suite:put_the_wine_bottle_on_the_rack
+    rationale: exact language of libero_goal task put_the_wine_bottle_on_the_rack
+
+  - id: id_stove_on
+    text: "turn on the stove"
+    group: in_distribution
+    kind: trained
+    bddl: suite:turn_on_the_stove
+    rationale: exact language of libero_goal task turn_on_the_stove
+
+  - id: id_middle_drawer
+    text: "open the middle drawer of the cabinet"
+    group: in_distribution
+    kind: trained
+    bddl: suite:open_the_middle_drawer_of_the_cabinet
+    rationale: exact language of libero_goal task open_the_middle_drawer_of_the_cabinet
+
+  # ------------------------------------------------------------------
+  # Novel: not among the 40 training task strings
+  # ------------------------------------------------------------------
+  - id: nv_paraphrase_bowl_plate
+    text: "place the black bowl on top of the plate"
+    group: novel
+    kind: paraphrase
+    bddl: suite:put_the_bowl_on_the_plate # trained goal, novel wording
+    rationale: >
+      paraphrase of "put the bowl on the plate"; the string matches no
+      training task. Similar wording ("pick up the black bowl ... and place
+      it on the plate") exists in libero_spatial, but in a different scene.
+
+  - id: nv_cheese_plate
+    text: "put the cream cheese on the plate"
+    group: novel
+    kind: recombination
+    bddl: custom:cream_cheese_on_plate
+    goal: "(On cream_cheese_1 plate_1)"
+    rationale: >
+      trained object (cream cheese was only ever put IN the bowl) with a
+      trained target (the plate was only ever a target for the bowl);
+      the combination appears in no training task.
+
+  - id: nv_wine_stove
+    text: "put the wine bottle on the stove"
+    group: novel
+    kind: recombination
+    bddl: custom:wine_bottle_on_stove
+    goal: "(On wine_bottle_1 flat_stove_1_cook_region)"
+    rationale: >
+      trained object (wine bottle -> rack / top of cabinet) with a trained
+      target (stove was only ever a target for the bowl); the combination
+      appears in no training task.
+
+  - id: nv_combined_stove_bowl
+    text: "turn on the stove and put the bowl on the stove"
+    group: novel
+    kind: combined
+    bddl: custom:stove_on_and_bowl_on_stove
+    goal: "(And (Turnon flat_stove_1) (On akita_black_bowl_1 flat_stove_1_cook_region))"
+    max_steps: 520 # two-step task; horizon matches openpi's libero_10 setting
+    rationale: >
+      combines two trained single-step libero_goal tasks into one
+      instruction; the combined string appears in no training task
+      (libero_10 contains "turn on the stove and put the moka pot on it",
+      but in a different scene with a different object).
