@@ -32,13 +32,13 @@ TITLE_H = 84
 CELL_W, CELL_H = WIDTH // 2, (HEIGHT - TITLE_H) // 2
 LABEL_H = 92
 
-BG = (17, 20, 24)
-PANEL_BG = (27, 32, 38)
-TEXT = (236, 239, 241)
-MUTED = (144, 154, 163)
-GREEN = (46, 204, 113)
-RED = (231, 76, 60)
-AMBER = (240, 178, 60)
+BG = (244, 245, 247)
+PANEL_BG = (255, 255, 255)
+TEXT = (22, 26, 30)
+MUTED = (108, 116, 124)
+GREEN = (22, 145, 78)
+RED = (200, 46, 36)
+AMBER = (168, 116, 8)
 
 SHOT1_TARGET_S = 20.0
 SHOT2_TARGET_S = 15.0
@@ -122,7 +122,7 @@ def panel_image(prompt_entry, frame, novel, finished):
         color = GREEN if ok else RED
         tw = text_width(draw, tag, F_SMALL)
         ty = CELL_H - 40
-        draw.rectangle((x + 8, ty - 6, x + tw + 28, ty + 28), fill=(0, 0, 0))
+        draw.rectangle((x + 8, ty - 6, x + tw + 28, ty + 28), fill=PANEL_BG)
         draw.text((x + 18, ty), tag, font=F_SMALL, fill=color)
 
     return cell
