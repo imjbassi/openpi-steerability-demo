@@ -17,6 +17,7 @@ Usage (client venv):  python scripts/make_video.py [--results results] [--out me
 import argparse
 import json
 import pathlib
+from reporting import episode_zero, video_groups
 
 import imageio
 import numpy as np
@@ -116,7 +117,7 @@ def panel_image(prompt_entry, frame, novel, finished):
     cell.paste(frame_img, (x, LABEL_H))
 
     if finished:
-        ep0 = prompt_entry["episodes"][0]
+        ep0 = episode_zero(prompt_entry)
         ok = ep0["success"]
         tag = "this episode: SUCCESS" if ok else "this episode: FAILURE"
         color = GREEN if ok else RED
@@ -133,7 +134,7 @@ def render_shot(entries, title, novel, target_s, writer, mock=False):
     frame_size = CELL_H - LABEL_H
     panels = []
     for entry in entries:
-        video = REPO_ROOT_RESULTS / entry["episodes"][0]["video"]
+        video = REPO_ROOT_RESULTS / episode_zero(entry)["video"]
         panels.append(load_episode_frames(video, frame_size))
 
     longest_s = max(len(p) for p in panels) / SOURCE_FPS
@@ -242,11 +243,10 @@ def main():
     with open(str(results_dir / "summary.json")) as f:
         summary = json.load(f)
 
-    entries = list(summary["prompts"].values())
-    in_dist = [e for e in entries if e["group"] == "in_distribution"][:4]
-    novel = [e for e in entries if e["group"] == "novel"][:4]
-    if not in_dist or not novel:
-        raise SystemExit("summary.json must contain both prompt groups")
+    try:
+        in_dist, novel = video_groups(summary)
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
 
     mock = bool((summary.get("server_metadata") or {}).get("mock"))
     mp4_path = out_dir / "demo.mp4"
