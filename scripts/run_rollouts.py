@@ -28,6 +28,7 @@ import logging
 import math
 import pathlib
 import time
+from rollout_log import read_records, positive_episode_count
 
 import imageio
 import numpy as np
@@ -164,22 +165,11 @@ def run_episode(env, client, prompt, episode_idx, init_state, spec, video_path):
 
 
 def load_done(log_path):
-    done = set()
-    if log_path.exists():
-        with open(str(log_path)) as f:
-            for line in f:
-                if line.strip():
-                    rec = json.loads(line)
-                    done.add((rec["prompt_id"], rec["episode"]))
-    return done
+    return {(rec["prompt_id"], rec["episode"]) for rec in read_records(log_path)}
 
 
 def write_summary(log_path, spec, out_dir, server_metadata=None):
-    records = []
-    with open(str(log_path)) as f:
-        for line in f:
-            if line.strip():
-                records.append(json.loads(line))
+    records = read_records(log_path)
     by_prompt = collections.OrderedDict()
     for prompt in spec["prompts"]:
         eps = sorted(
@@ -225,14 +215,18 @@ def main():
     parser.add_argument("--host", default="0.0.0.0")
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--out", default=str(REPO_ROOT / "results"))
-    parser.add_argument("--episodes", type=int, default=None, help="override prompts.yaml num_episodes")
+    parser.add_argument("--episodes", type=positive_episode_count, default=None, help="override prompts.yaml num_episodes")
     parser.add_argument("--only", default=None, help="comma-separated prompt ids to run")
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
     spec = yaml.safe_load((REPO_ROOT / "prompts.yaml").read_text())
-    num_episodes = args.episodes or spec["num_episodes"]
+    num_episodes = positive_episode_count(args.episodes if args.episodes is not None else spec["num_episodes"])
     only = set(args.only.split(",")) if args.only else None
+    if only:
+        unknown = only - {p["id"] for p in spec["prompts"]}
+        if unknown:
+            parser.error("unknown prompt ids: " + ", ".join(sorted(unknown)))
 
     out_dir = pathlib.Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)

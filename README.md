@@ -137,6 +137,11 @@ Sanity checks without a GPU: `make mock-server` serves random actions over
 the same websocket protocol, and `make smoke` runs 2 episodes per prompt
 against whatever server is up, writing to `results-smoke/`.
 
+Dependency-free regression tests: `python -m unittest discover -s tests -v`.
+Resume and summary generation reject duplicate or malformed episode records,
+including interrupted JSON lines, with a file/line diagnostic. Repair the log
+before continuing; invalid records are never silently dropped from results.
+
 ## Layout
 
 ```
