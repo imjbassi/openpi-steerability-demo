@@ -13,10 +13,13 @@ END = "<!-- RESULTS_TABLE_END -->"
 
 
 def build_table(summary):
-    lines = [
+    lines = []
+    if (summary.get("server_metadata") or {}).get("mock"):
+        lines.extend(["> **MOCK SERVER DATA — not model evaluation results.**", ""])
+    lines.extend([
         "| prompt | group | kind | success |",
         "| --- | --- | --- | --- |",
-    ]
+    ])
     for entry in summary["prompts"].values():
         lines.append(
             '| "{}" | {} | {} | {}/{} |'.format(
@@ -37,6 +40,8 @@ def build_table(summary):
 def main():
     with open(str(REPO_ROOT / "results" / "summary.json")) as f:
         summary = json.load(f)
+    if (summary.get("server_metadata") or {}).get("mock"):
+        raise SystemExit("Refusing to replace README model results with mock-server data")
     readme_path = REPO_ROOT / "README.md"
     readme = readme_path.read_text()
     if START not in readme or END not in readme:
